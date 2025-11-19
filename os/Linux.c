@@ -755,22 +755,24 @@ void get_one_proc_stat(char * dirname, struct obstack *mem_pool)
   fixup_stat_values(format_str, prs);
 
   /* get process' cmndline */
-  get_proc_cmndline(dirname, format_str, prs, mem_pool);
+  if ( prs->state_c != 'D' ) {
+    get_proc_cmndline(dirname, format_str, prs, mem_pool);
+  }
 
   /* get process' cmdline */
-  get_proc_cmdline(dirname, format_str, prs, mem_pool);
+  //get_proc_cmdline(dirname, format_str, prs, mem_pool);
 
   /* get process' environ */
-  get_proc_environ(dirname, format_str, prs, mem_pool);
+  //get_proc_environ(dirname, format_str, prs, mem_pool);
 
   /* get process' cwd & exec values from the symblink */
-  eval_link(dirname, "cwd", F_CWD, &prs->cwd, format_str,
+  /*eval_link(dirname, "cwd", F_CWD, &prs->cwd, format_str,
             mem_pool);
   eval_link(dirname, "exe", F_EXEC, &prs->exec, format_str,
-            mem_pool);
+            mem_pool);*/
 
   /* scrape from /proc/{$pid}/status */
-  get_proc_status(dirname, format_str, prs, mem_pool);
+  //get_proc_status(dirname, format_str, prs, mem_pool);
 
   /* calculate precent cpu & mem values */
   calc_prec(format_str, prs, mem_pool);
